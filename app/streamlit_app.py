@@ -9,10 +9,10 @@ st.set_page_config(
 
 @st.cache_data
 def cargar_datos():
-    base_dir = Path("/content")
+    root_dir = Path(__file__).resolve().parents[1]
 
-    dim_path = base_dir / "dim_tipo_solicitud.csv"
-    fact_path = base_dir / "fact_mesas_ayuda.csv"
+    dim_path = root_dir / "data" / "processed" / "dim_tipo_solicitud.csv"
+    fact_path = root_dir / "data" / "processed" / "fact_mesas_ayuda.csv"
 
     dim_tipo = pd.read_csv(dim_path)
     fact_mesas_ayuda = pd.read_csv(fact_path)
