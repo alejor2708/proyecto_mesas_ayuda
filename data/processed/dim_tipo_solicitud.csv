@@ -1,0 +1,64 @@
+tipo_id,tipo_principal,subtipo,tipo_completo
+1,Acceso,,Acceso
+2,Acceso,Acceso remoto por VPN,Acceso > Acceso remoto por VPN
+3,Acceso,CARPETA COMPARTIDA,Acceso > CARPETA COMPARTIDA
+4,Acceso,CORREO ELECTRÓNICO,Acceso > CORREO ELECTRÓNICO
+5,Acceso,KACTUS,Acceso > KACTUS
+6,Acceso,Recuperación de Contraseña,Acceso > Recuperación de Contraseña
+7,Acceso,SEVEN,Acceso > SEVEN
+8,Acceso,SGI,Acceso > SGI
+9,Acceso,SICAU,Acceso > SICAU
+10,Acceso,USUARIO DE EQUIPO,Acceso > USUARIO DE EQUIPO
+11,Acompañamiento,,Acompañamiento
+12,Chapas,,Chapas
+13,Concepto Técnico,,Concepto Técnico
+14,Correo electrónico,,Correo electrónico
+15,Dispositivos,,Dispositivos
+16,Dispositivos,"Básicos(Teclado, Mouse, Cables)","Dispositivos > Básicos(Teclado, Mouse, Cables)"
+17,Dispositivos,Cámara,Dispositivos > Cámara
+18,Dispositivos,Impresoras,Dispositivos > Impresoras
+19,Dispositivos,Pantallas,Dispositivos > Pantallas
+20,Dispositivos,Proyectores,Dispositivos > Proyectores
+21,Mantenimiento,,Mantenimiento
+22,Otros,Traslado de Equipos,Otros > Traslado de Equipos
+23,Pascual Bravo SAI,,Pascual Bravo SAI
+24,Redes,,Redes
+25,Redes,Punto de red,Redes > Punto de red
+26,Redes,Sin Internet,Redes > Sin Internet
+27,Redes,Telefonia,Redes > Telefonia
+28,Redes,Wifi,Redes > Wifi
+29,Servidor MOODLE,,Servidor MOODLE
+30,Software,,Software
+31,Software,Antivirus,Software > Antivirus
+32,Software,Egresados,Software > Egresados
+33,Software,Error de Aplicación,Software > Error de Aplicación
+34,Software,Herramientas de Office,Software > Herramientas de Office
+35,Software,Instalar Programa,Software > Instalar Programa
+36,Software,Kactus,Software > Kactus
+37,Software,PaperClip,Software > PaperClip
+38,Software,Seven,Software > Seven
+39,Software,Seven > Activos Fijos,Software > Seven > Activos Fijos
+40,Software,Seven > Adquisiciones,Software > Seven > Adquisiciones
+41,Software,Seven > Cartera,Software > Seven > Cartera
+42,Software,Seven > Compras,Software > Seven > Compras
+43,Software,Seven > Contabilidad,Software > Seven > Contabilidad
+44,Software,Seven > Contratos,Software > Seven > Contratos
+45,Software,Seven > Costos,Software > Seven > Costos
+46,Software,Seven > Presupuesto,Software > Seven > Presupuesto
+47,Software,Seven > Proveedores,Software > Seven > Proveedores
+48,Software,Seven > Tesorería,Software > Seven > Tesorería
+49,Software,SICAU,Software > SICAU
+50,Software,SICAU > Error del sistema,Software > SICAU > Error del sistema
+51,Software,SICAU > Incidente Bolsa de Empleo y Egresados,Software > SICAU > Incidente Bolsa de Empleo y Egresados
+52,Software,SICAU > Incidente con liquidación o Pagos,Software > SICAU > Incidente con liquidación o Pagos
+53,Software,SICAU > Incidente de Bienestar y Permanencia,Software > SICAU > Incidente de Bienestar y Permanencia
+54,Software,SICAU > Incidente de Integración,Software > SICAU > Incidente de Integración
+55,Software,SICAU > Incidente Educación Continua,Software > SICAU > Incidente Educación Continua
+56,Software,SICAU > Incidente Historia Académica,Software > SICAU > Incidente Historia Académica
+57,Software,SICAU > Incidente SGI,Software > SICAU > Incidente SGI
+58,Software,SICAU > Incidente Sillas Vacias,Software > SICAU > Incidente Sillas Vacias
+59,Software,SICAU > Pascual Me Cuida,Software > SICAU > Pascual Me Cuida
+60,Software,SICAU > Solicitud de Informes y Reportes,Software > SICAU > Solicitud de Informes y Reportes
+61,Software,SICAU > Solicitud de requerimiento,Software > SICAU > Solicitud de requerimiento
+62,Traslados definitivos,,Traslados definitivos
+63,Traslados Temporales,,Traslados Temporales
