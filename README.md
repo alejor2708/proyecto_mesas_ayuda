@@ -1,27 +1,22 @@
 # Proyecto Mesas de Ayuda
 
-Proyecto de base de datos relacional y dashboard analítico construido a partir de un dataset abierto de **Mesas de Ayuda**, trabajado mediante un flujo de limpieza en Python, modelado relacional en MySQL y visualización posterior en Streamlit.
+Proyecto de base de datos relacional y dashboard analítico construido a partir de un dataset abierto de **Mesas de Ayuda**, desarrollado mediante un flujo de limpieza en Python, modelado relacional en MySQL, consultas SQL, visualización en Streamlit y documentación final en GitHub.
 
 ---
 
-## 1. Descripción del proyecto
+## 1. Descripción general
 
-Este proyecto tiene como objetivo transformar un archivo CSV de origen abierto en una solución estructurada de análisis de datos compuesta por:
+El objetivo de este proyecto fue transformar un archivo CSV de origen abierto en una solución estructurada de análisis de datos compuesta por:
 
+- preparación y transformación de datos en Python/pandas,
 - modelo entidad-relación (MER),
-- modelo relacional,
-- scripts SQL de creación y carga,
-- consultas analíticas,
+- modelo relacional implementado en MySQL,
+- scripts SQL de creación, carga y consulta,
 - dashboard interactivo en Streamlit,
+- landing page de presentación,
 - documentación final publicada en GitHub.
 
-El proyecto fue desarrollado en un entorno con:
-
-- Ubuntu
-- MySQL Workbench
-- MySQL Server
-- VS Code
-- Google Colab / Jupyter
+El proyecto integra varias capas de trabajo: preparación del dato, modelado, validación analítica, visualización y presentación final.
 
 ---
 
@@ -29,7 +24,7 @@ El proyecto fue desarrollado en un entorno con:
 
 El dataset trabajado corresponde a registros de **Mesas de Ayuda** obtenidos desde una fuente abierta en formato CSV.
 
-Una aclaración importante del proyecto es que el archivo original **no contiene tickets individuales**, sino **registros agregados por tipo de solicitud**.  
+Una aclaración fundamental del proyecto es que el archivo original **no contiene tickets individuales**, sino **registros agregados por tipo de solicitud**.  
 Cada fila resume métricas como:
 
 - casos abiertos,
@@ -38,44 +33,63 @@ Cada fila resume métricas como:
 - casos cerrados,
 - tiempo promedio de solución.
 
-Por esta razón, el archivo no se importó directamente “tal cual” a MySQL.  
-Primero se realizó un proceso de limpieza, transformación y modelado en Python/pandas para estructurar correctamente la información antes de implementarla como una base de datos relacional.
+Por esta razón, el archivo original no se importó directamente “tal cual” a MySQL.  
+Primero fue necesario realizar un proceso de comprensión, limpieza y transformación en Python/pandas para reorganizar la información y convertirla en una estructura adecuada para un modelo relacional y una capa de visualización posterior.
 
 ---
 
-## 3. Proceso general de trabajo
+## 3. Flujo general del proyecto
 
-El flujo del proyecto fue el siguiente:
+El flujo de trabajo desarrollado fue el siguiente:
 
-1. Carga del CSV original en Google Colab / Jupyter.
-2. Limpieza y renombrado de columnas.
-3. Transformación de la columna `tipo_solicitud` en:
-   - `tipo_principal`
-   - `subtipo`
-   - `tipo_completo`
-4. Conversión de `tiempo_promedio` a `tiempo_promedio_segundos`.
-5. Construcción de dos tablas derivadas:
-   - `dim_tipo_solicitud`
-   - `fact_mesas_ayuda`
-6. Exportación de archivos CSV listos para MySQL.
-7. Creación de la base de datos `proyecto_mesas_ayuda`.
-8. Carga de tablas y definición de claves primarias y foránea.
-9. Ejecución de validaciones y consultas analíticas.
-10. Preparación del repositorio GitHub para la entrega final.
+1. Carga del CSV original en Python.
+2. Exploración inicial del dataset.
+3. Limpieza y renombrado de columnas.
+4. Transformación de la variable `tipo_solicitud`.
+5. Conversión de `tiempo_promedio` a `tiempo_promedio_segundos`.
+6. Construcción de tablas derivadas para el modelo relacional.
+7. Exportación de archivos CSV procesados.
+8. Implementación de la base de datos en MySQL.
+9. Definición de claves primarias y clave foránea.
+10. Validación mediante consultas SQL.
+11. Construcción de un dashboard en Streamlit.
+12. Organización de la entrega final en GitHub, incluyendo README, MER y landing page.
 
 ---
 
-## 4. Modelo de datos
+## 4. Preparación de datos
 
-La base de datos implementada en MySQL es **relacional**.
+Durante la fase de transformación se realizaron las siguientes operaciones principales:
 
-### Base de datos
+- estandarización de nombres de columnas,
+- revisión de estructura y tipos de datos,
+- separación de la columna `tipo_solicitud` en:
+  - `tipo_principal`,
+  - `subtipo`,
+  - `tipo_completo`,
+- conversión del tiempo promedio a una métrica numérica homogénea en segundos,
+- construcción de dos tablas derivadas que alimentan el modelo relacional:
+  - `dim_tipo_solicitud`,
+  - `fact_mesas_ayuda`.
+
+Los archivos procesados generados al final de esta fase fueron:
+
+- `mesas_ayuda_limpio.csv`
+- `dim_tipo_solicitud.csv`
+- `fact_mesas_ayuda.csv`
+
+---
+
+## 5. Modelo de datos
+
+La base de datos implementada en MySQL es **relacional** y se definió con el nombre:
+
 `proyecto_mesas_ayuda`
 
 ### Tablas principales
 
 #### `dim_tipo_solicitud`
-Tabla dimensional que contiene la clasificación de los tipos de solicitud.
+Tabla dimensional que almacena la clasificación de los tipos de solicitud.
 
 Campos principales:
 - `tipo_id` (PK)
@@ -84,10 +98,11 @@ Campos principales:
 - `tipo_completo`
 
 #### `fact_mesas_ayuda`
-Tabla de hechos con las métricas agregadas del dataset.
+Tabla de hechos que contiene las métricas agregadas del dataset.
 
 Campos principales:
 - `registro_id` (PK)
+- `anio`
 - `tipo_id` (FK)
 - `casos_abiertos`
 - `casos_resueltos`
@@ -95,14 +110,22 @@ Campos principales:
 - `casos_cerrados`
 - `tiempo_promedio_segundos`
 
-### Relación
+### Relación principal
 - `dim_tipo_solicitud (1) -> (N) fact_mesas_ayuda`
+
+El diagrama exportado del modelo se encuentra en:
+
+- `docs/mer_modelo_relacional.png`
+
+y el archivo editable de Workbench en:
+
+- `docs/proyecto_mesas_ayuda.mwb`
 
 ---
 
-## 5. Validaciones realizadas
+## 6. Validaciones realizadas
 
-Después de la carga en MySQL, se validó la coherencia de la información con los siguientes resultados:
+Después de la carga en MySQL se verificó la consistencia de la información con los siguientes resultados:
 
 - filas en `dim_tipo_solicitud`: **63**
 - filas en `fact_mesas_ayuda`: **63**
@@ -111,34 +134,86 @@ Después de la carga en MySQL, se validó la coherencia de la información con l
 - total casos atrasados: **0**
 - total casos cerrados: **2106**
 
-Estas validaciones confirmaron que la carga y transformación quedaron consistentes respecto a los archivos procesados.
+Estas validaciones confirmaron que la carga quedó coherente con los archivos procesados y con el flujo de transformación realizado en Python.
 
 ---
 
-## 6. Hallazgos principales
+## 7. Hallazgos principales
 
-Entre los principales hallazgos identificados hasta esta etapa del proyecto se encuentran:
+Entre los hallazgos más importantes del proyecto se encuentran:
 
 - La categoría con mayor carga de casos es **Acceso**.
-- El tipo completo con mayor número de casos es **Acceso > SICAU**, con **663 casos abiertos**.
-- Existe una anomalía reportable en **Acompañamiento**, que presenta una tasa de resolución superior al 100%, lo que sugiere una posible particularidad o inconsistencia en la fuente de datos.
-- También se observan pequeñas diferencias entre casos abiertos y cerrados en categorías como **Software** y **Redes**.
+- El tipo completo con mayor número de casos es **Acceso > SICAU**.
+- Se identificó una anomalía reportable en **Acompañamiento**, con una tasa de resolución superior al 100%.
+- También se observaron pequeñas diferencias entre casos abiertos y cerrados en categorías como **Software** y **Redes**.
+
+Estos hallazgos se reflejan tanto en las consultas SQL como en el dashboard de visualización.
 
 ---
 
-## 7. Estructura del repositorio
+## 8. Dashboard en Streamlit
+
+Como capa de visualización se construyó un dashboard analítico en Streamlit que permite:
+
+- explorar los datos por tipo principal,
+- visualizar indicadores clave (KPIs),
+- revisar distribución de casos abiertos por categoría,
+- consultar los tipos de solicitud con mayor carga,
+- analizar tiempos promedio de solución,
+- identificar anomalías y diferencias entre métricas.
+
+El archivo principal del dashboard se encuentra en:
+
+- `app/streamlit_app.py`
+
+El dashboard fue probado tanto en entorno de desarrollo como en ejecución local desde el repositorio.
+
+---
+
+## 9. Landing page
+
+Como parte de la presentación final del proyecto se construyó una landing page estática que resume:
+
+- el propósito del proyecto,
+- el flujo general de trabajo,
+- el MER,
+- los hallazgos principales,
+- las tecnologías utilizadas,
+- los archivos más importantes del repositorio.
+
+La landing page se encuentra en:
+
+- `landing/index.html`
+
+---
+
+## 10. Estructura del repositorio
 
 ```text
 proyecto_mesas_ayuda/
-├── app/                  # Dashboard en Streamlit
+├── app/
+│   └── streamlit_app.py
 ├── assets/
-│   └── img/              # Imágenes y recursos visuales
+│   └── img/
 ├── data/
-│   ├── raw/              # Datos originales
-│   └── processed/        # Datos limpios y transformados
-├── docs/                 # Documentación del proyecto y evidencias
-├── notebooks/            # Notebook de trabajo y exploración
-├── sql/                  # Scripts SQL de creación, carga y consultas
+│   ├── raw/
+│   │   └── Mesas_de_ayuda.csv
+│   └── processed/
+│       ├── mesas_ayuda_limpio.csv
+│       ├── dim_tipo_solicitud.csv
+│       └── fact_mesas_ayuda.csv
+├── docs/
+│   ├── proceso_proyecto_mesas_ayuda.pdf
+│   ├── mer_modelo_relacional.png
+│   └── proyecto_mesas_ayuda.mwb
+├── landing/
+│   └── index.html
+├── notebooks/
+│   ├── primera_entrega.ipynb
+│   └── dashboard_mesas_ayuda_colab.ipynb
+├── sql/
+│   ├── 01_modelo_y_carga.sql
+│   └── 02_consultas_analiticas.sql
 ├── .gitignore
 ├── README.md
 └── requirements.txt
@@ -146,7 +221,7 @@ proyecto_mesas_ayuda/
 
 ---
 
-## 8. Archivos principales del proyecto
+## 11. Archivos principales
 
 ### Datos
 - `data/raw/Mesas_de_ayuda.csv`
@@ -158,15 +233,21 @@ proyecto_mesas_ayuda/
 - `sql/01_modelo_y_carga.sql`
 - `sql/02_consultas_analiticas.sql`
 
-### Documentación
-- `docs/proceso_proyecto_mesas_ayuda.pdf`
-
 ### Notebook
 - `notebooks/primera_entrega.ipynb`
+- `notebooks/dashboard_mesas_ayuda_colab.ipynb`
+
+### App y presentación
+- `app/streamlit_app.py`
+- `landing/index.html`
+
+### Documentación
+- `docs/proceso_proyecto_mesas_ayuda.pdf`
+- `docs/mer_modelo_relacional.png`
 
 ---
 
-## 9. Tecnologías utilizadas
+## 12. Tecnologías utilizadas
 
 - Python
 - pandas
@@ -175,50 +256,69 @@ proyecto_mesas_ayuda/
 - Streamlit
 - Git
 - GitHub
+- Google Colab
+- VS Code
 
 ---
 
-## 10. Estado actual del proyecto
+## 13. Entorno de trabajo recomendado
 
-Actualmente el proyecto tiene completadas las siguientes fases:
+Para la entrega final se recomienda trabajar principalmente en **Windows**, ya que es el entorno sugerido en el curso.
 
-- limpieza y transformación del dataset,
-- modelado relacional,
-- creación y carga de la base de datos en MySQL,
-- validaciones SQL,
-- consultas analíticas iniciales,
-- organización del repositorio en GitHub.
+Durante el desarrollo también se utilizó **Ubuntu** como entorno alterno para:
 
-Fases pendientes o en desarrollo:
-
-- construcción del dashboard en Streamlit,
-- definición de la landing page,
-- exportación y publicación del MER,
-- documentación final de entrega.
+- ejecución local de Git y GitHub,
+- pruebas del dashboard en Streamlit,
+- organización de archivos del repositorio.
 
 ---
 
-## 11. Cómo ejecutar el proyecto
+## 14. Cómo ejecutar el proyecto
 
-### SQL
+### A. Scripts SQL
 1. Crear la base de datos `proyecto_mesas_ayuda` en MySQL.
-2. Ejecutar el script `sql/01_modelo_y_carga.sql`.
-3. Ejecutar el script `sql/02_consultas_analiticas.sql`.
+2. Ejecutar el archivo `sql/01_modelo_y_carga.sql`.
+3. Ejecutar el archivo `sql/02_consultas_analiticas.sql`.
 
-### Notebook
-Abrir el archivo `notebooks/primera_entrega.ipynb` para revisar el proceso de limpieza y transformación de datos.
+### B. Notebook principal
+Abrir `notebooks/primera_entrega.ipynb` para revisar la fase de preparación y exportación de datos.
 
-### Dashboard
-El dashboard en Streamlit será agregado en la carpeta `app/` en la siguiente fase del proyecto.
+### C. Dashboard en Streamlit
+1. Crear y activar un entorno virtual de Python.
+2. Instalar dependencias con:
+
+```bash
+python -m pip install -r requirements.txt
+```
+
+3. Ejecutar la aplicación:
+
+```bash
+python -m streamlit run app/streamlit_app.py
+```
+
+### D. Landing page
+Abrir `landing/index.html` en el navegador o servir el proyecto localmente con un servidor HTTP simple.
 
 ---
 
-## 12. Próximos pasos
+## 15. Estado actual del proyecto
 
-Los siguientes pasos del proyecto son:
+Actualmente el proyecto cuenta con:
 
-1. construir el dashboard en Streamlit,
-2. diseñar la landing page,
-3. exportar el MER desde MySQL Workbench,
-4. completar la narrativa final de entrega,
-5. revisar la coherencia entre modelo relacional, SQL, visualizaciones y documentación.
+- preparación y transformación de datos,
+- archivos CSV procesados,
+- modelo relacional implementado en MySQL,
+- validaciones y consultas SQL,
+- MER exportado desde MySQL Workbench,
+- dashboard funcional en Streamlit,
+- landing page de presentación,
+- documentación y organización final en GitHub.
+
+---
+
+## 16. Observaciones finales
+
+Este proyecto muestra un flujo completo de trabajo desde un archivo plano de datos hasta una solución organizada de base de datos y visualización.
+
+Aunque el dataset original no fue diseñado como una base relacional, el proceso de limpieza y modelado permitió convertirlo en una estructura coherente, analizable y presentable como entrega académica final.
