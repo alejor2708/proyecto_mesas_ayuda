@@ -1,4 +1,5 @@
 **Proyecto Mesas de Ayuda**  
+
 Proyecto de base de datos relacional y dashboard analítico construido a partir de un dataset abierto de **Mesas de Ayuda**, desarrollado mediante un flujo de limpieza en Python, modelado relacional en MySQL, consultas SQL, visualización en Streamlit y documentación final en GitHub.  
 ![](data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAnEAAAACCAYAAAA3pIp+AAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAANklEQVR4nO3OQQmAABRAsSeYxZy/lHd7GMACBrCCNxG2BFtmZquOAAD4i3Ot7mr/egIAwGvXA7GTBde8bLBeAAAAAElFTkSuQmCC)  
 **1. Descripción general**  
@@ -16,7 +17,7 @@ El proyecto integra varias capas de trabajo: preparación del dato, modelado, va
 El dataset trabajado corresponde a registros de **Mesas de Ayuda** obtenidos desde una fuente abierta en formato CSV.  
 Una aclaración fundamental del proyecto es que el archivo original **no contiene tickets individuales**, sino  **registros agregados por tipo de solicitud**.  
    
- Cada fila resume métricas como:  
+Cada fila resume métricas como:  
 - casos abiertos,  
 - casos resueltos,  
 - casos atrasados,  
@@ -24,7 +25,7 @@ Una aclaración fundamental del proyecto es que el archivo original **no contien
 - tiempo promedio de solución.  
 Por esta razón, el archivo original no se importó directamente “tal cual” a MySQL.  
    
- Primero fue necesario realizar un proceso de comprensión, limpieza y transformación en Python/pandas para reorganizar la información y convertirla en una estructura adecuada para un modelo relacional y una capa de visualización posterior.  
+Primero fue necesario realizar un proceso de comprensión, limpieza y transformación en Python/pandas para reorganizar la información y convertirla en una estructura adecuada para un modelo relacional y una capa de visualización posterior.  
 ![](data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAnEAAAACCAYAAAA3pIp+AAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAANklEQVR4nO3OMQ2AABAAsSNBACMC0cD8NpGACyywEZJWQZeZ2aszAAD+4l6rrTq+ngAA8Nr1AL+yBEpU09MiAAAAAElFTkSuQmCC)  
 **3. Flujo general del proyecto**  
 El flujo de trabajo desarrollado fue el siguiente:  
