@@ -2,6 +2,7 @@
 
 Proyecto de base de datos relacional y dashboard analítico construido a partir de un dataset abierto de **Mesas de Ayuda**, desarrollado mediante un flujo de limpieza en Python, modelado relacional en MySQL, consultas SQL, visualización en Streamlit y documentación final en GitHub.  
 ![](data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAnEAAAACCAYAAAA3pIp+AAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAANklEQVR4nO3OQQmAABRAsSeYxZy/lHd7GMACBrCCNxG2BFtmZquOAAD4i3Ot7mr/egIAwGvXA7GTBde8bLBeAAAAAElFTkSuQmCC)  
+
 **1. Descripción general**  
 El objetivo de este proyecto fue transformar un archivo CSV de origen abierto en una solución estructurada de análisis de datos compuesta por:  
 - preparación y transformación de datos en Python/pandas,  
@@ -13,6 +14,7 @@ El objetivo de este proyecto fue transformar un archivo CSV de origen abierto en
 - documentación final publicada en GitHub.  
 El proyecto integra varias capas de trabajo: preparación del dato, modelado, validación analítica, visualización y presentación final.  
 ![](data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAnEAAAACCAYAAAA3pIp+AAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAM0lEQVR4nO3OMQ0AIAwAwdIgBKl1gjacsGCAiZDcTT9+q6oRETMAAPjF6ify6QYAADdyA9Y0AypN+bdfAAAAAElFTkSuQmCC)  
+
 **2. Contexto del dataset**  
 El dataset trabajado corresponde a registros de **Mesas de Ayuda** obtenidos desde una fuente abierta en formato CSV.  
 Una aclaración fundamental del proyecto es que el archivo original **no contiene tickets individuales**, sino  **registros agregados por tipo de solicitud**.  
@@ -27,6 +29,7 @@ Por esta razón, el archivo original no se importó directamente “tal cual” 
    
 Primero fue necesario realizar un proceso de comprensión, limpieza y transformación en Python/pandas para reorganizar la información y convertirla en una estructura adecuada para un modelo relacional y una capa de visualización posterior.  
 ![](data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAnEAAAACCAYAAAA3pIp+AAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAANklEQVR4nO3OMQ2AABAAsSNBACMC0cD8NpGACyywEZJWQZeZ2aszAAD+4l6rrTq+ngAA8Nr1AL+yBEpU09MiAAAAAElFTkSuQmCC)  
+
 **3. Flujo general del proyecto**  
 El flujo de trabajo desarrollado fue el siguiente:  
 1. Carga del CSV original en Python.  
@@ -42,6 +45,7 @@ El flujo de trabajo desarrollado fue el siguiente:
 11. Construcción de un dashboard en Streamlit.  
 12. Organización de la entrega final en GitHub, incluyendo README, MER y landing page.  
 ![](data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAnEAAAACCAYAAAA3pIp+AAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAANUlEQVR4nO3OMQ2AABAAsSNBCUrfDqrYGVDAgAU2QtIq6DIzW7UHAMBfHGt1V+fXEwAAXrseHCQGBEuErVgAAAAASUVORK5CYII=)  
+
 **4. Preparación de datos**  
 Durante la fase de transformación se realizaron las siguientes operaciones principales:  
 - estandarización de nombres de columnas,  
@@ -59,6 +63,7 @@ Los archivos procesados generados al final de esta fase fueron:
 - dim_tipo_solicitud.csv  
 - fact_mesas_ayuda.csv  
 ![](data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAnEAAAACCAYAAAA3pIp+AAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAANklEQVR4nO3OMQ2AABAAsSNBACPiUML0NpGACyywEZJWQZeZ2aszAAD+4l6rrTq+ngAA8Nr1AL/SBEZwuCSwAAAAAElFTkSuQmCC)  
+
 **5. Modelo de datos**  
 La base de datos implementada en MySQL es **relacional** y se definió con el nombre:  
 proyecto_mesas_ayuda  
@@ -88,6 +93,7 @@ El diagrama exportado del modelo se encuentra en:
 y el archivo editable de Workbench en:  
 - docs/proyecto_mesas_ayuda.mwb  
 ![](data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAnEAAAACCAYAAAA3pIp+AAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAANUlEQVR4nO3OMQ2AABAAsSNhZ0YbTpjeJg6QgQU2QtIq6DIze3UGAMBf3Gu1VcfXEwAAXrsethQERN6FFS4AAAAASUVORK5CYII=)  
+
 **6. Validaciones realizadas**  
 Después de la carga en MySQL se verificó la consistencia de la información con los siguientes resultados:  
 - filas en dim_tipo_solicitud: **63**  
@@ -98,6 +104,7 @@ Después de la carga en MySQL se verificó la consistencia de la información co
 - total casos cerrados: **2106**  
 Estas validaciones confirmaron que la carga quedó coherente con los archivos procesados y con el flujo de transformación realizado en Python.  
 ![](data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAnEAAAACCAYAAAA3pIp+AAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAANUlEQVR4nO3OMQ2AABAAsSPBCUZfEnoYmFDBhAU2QtIq6DIzW7UHAMBfnGt1V8fXEwAAXrse/wcF74lXkIsAAAAASUVORK5CYII=)  
+
 **7. Hallazgos principales**  
 Entre los hallazgos más importantes del proyecto se encuentran:  
 - La categoría con mayor carga de casos es **Acceso**.  
@@ -106,6 +113,7 @@ Entre los hallazgos más importantes del proyecto se encuentran:
 - También se observaron pequeñas diferencias entre casos abiertos y cerrados en categorías como **Software** y  **Redes**.  
 Estos hallazgos se reflejan tanto en las consultas SQL como en el dashboard de visualización.  
 ![](data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAnEAAAACCAYAAAA3pIp+AAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAANElEQVR4nO3OQQmAUBBAwSf8GGLWDWFDY3ixgjcRZhLMNjNHdQYAwF9cq1rV/vUEAIDX7gcRXAQ2s/16gwAAAABJRU5ErkJggg==)  
+
 **8. Dashboard en Streamlit**  
 Como capa de visualización se construyó un dashboard analítico en Streamlit que permite:  
 - explorar los datos por tipo principal,  
@@ -118,6 +126,7 @@ El archivo principal del dashboard se encuentra en:
 - app/streamlit_app.py  
 El dashboard fue probado tanto en entorno de desarrollo como en ejecución local desde el repositorio.  
 ![](data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAnEAAAACCAYAAAA3pIp+AAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAANklEQVR4nO3OQQmAABRAsScYxpg/i2XMYARvRrCCNxG2BFtmZquOAAD4i3Ot7mr/egIAwGvXA22YBcnkstSpAAAAAElFTkSuQmCC)  
+
 **9. Landing page**  
 Como parte de la presentación final del proyecto se construyó una landing page estática que resume:  
 - el propósito del proyecto,  
@@ -129,6 +138,7 @@ Como parte de la presentación final del proyecto se construyó una landing page
 La landing page se encuentra en:  
 - landing/index.html  
 ![](data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAnEAAAACCAYAAAA3pIp+AAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAANklEQVR4nO3OMQ2AABAAsSNBCUpfDq4wwIAABiywEZJWQZeZ2ao9AAD+4liruzq/ngAA8Nr1ABweBgdur/QFAAAAAElFTkSuQmCC)  
+
 **10. Estructura del repositorio**  
 proyecto_mesas_ayuda/  
  ├── app/  
@@ -159,6 +169,7 @@ proyecto_mesas_ayuda/
  └── requirements.txt  
    
 ![](data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAnEAAAACCAYAAAA3pIp+AAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAANklEQVR4nO3OQQmAABRAsSfYxZo/jVEMYQLPJrCCNxG2BFtmZquOAAD4i3Ot7mr/egIAwGvXA4rLBc059ysnAAAAAElFTkSuQmCC)  
+
 **11. Archivos principales**  
 **Datos**  
 - data/raw/Mesas_de_ayuda.csv  
@@ -178,6 +189,7 @@ proyecto_mesas_ayuda/
 - docs/proceso_proyecto_mesas_ayuda.pdf  
 - docs/mer_modelo_relacional.png  
 ![](data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAnEAAAACCAYAAAA3pIp+AAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAANUlEQVR4nO3OQQmAABRAsSd4EKxgBjP+Asa0hxW8ibAl2DIzR3UFAMBf3Gu1VefXEwAAXtsfSqwDVbgKngwAAAAASUVORK5CYII=)  
+
 **12. Tecnologías utilizadas**  
 - Python  
 - pandas  
@@ -189,6 +201,7 @@ proyecto_mesas_ayuda/
 - Google Colab  
 - VS Code  
 ![](data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAnEAAAACCAYAAAA3pIp+AAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAANklEQVR4nO3OQQmAABRAsScYxpg/i2XMYARvRrCCNxG2BFtmZquOAAD4i3Ot7mr/egIAwGvXA22YBcnkstSpAAAAAElFTkSuQmCC)  
+
 **13. Entorno de trabajo recomendado**  
 Para la entrega final se recomienda trabajar principalmente en **Windows**, ya que es el entorno sugerido en el curso.  
 Durante el desarrollo también se utilizó **Ubuntu** como entorno alterno para:  
@@ -196,6 +209,7 @@ Durante el desarrollo también se utilizó **Ubuntu** como entorno alterno para:
 - pruebas del dashboard en Streamlit,  
 - organización de archivos del repositorio.  
 ![](data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAnEAAAACCAYAAAA3pIp+AAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAANUlEQVR4nO3OMQ2AABAAsSPBCUZfEnoYmFDBhAU2QtIq6DIzW7UHAMBfnGt1V8fXEwAAXrse/wcF74lXkIsAAAAASUVORK5CYII=)  
+
 **14. Cómo ejecutar el proyecto**  
 **A. Scripts SQL**  
 1. Crear la base de datos proyecto_mesas_ayuda en MySQL.  
@@ -214,6 +228,7 @@ python -m streamlit run app/streamlit_app.py
 **D. Landing page**  
 Abrir landing/index.html en el navegador o servir el proyecto localmente con un servidor HTTP simple.  
 ![](data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAnEAAAACCAYAAAA3pIp+AAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAANklEQVR4nO3OMQ2AABAAsSNBACMC0cD8NpGACyywEZJWQZeZ2aszAAD+4l6rrTq+ngAA8Nr1AL+yBEpU09MiAAAAAElFTkSuQmCC)  
+
 **15. Estado actual del proyecto**  
 Actualmente el proyecto cuenta con:  
 - preparación y transformación de datos,  
@@ -225,6 +240,7 @@ Actualmente el proyecto cuenta con:
 - landing page de presentación,  
 - documentación y organización final en GitHub.  
 ![](data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAnEAAAACCAYAAAA3pIp+AAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAANUlEQVR4nO3OMQ2AABAAsSNBCkJfE1pYGfHAiAU2QtIq6DIzW7UHAMBfnGt1V8fXEwAAXrse4dwF6o2O55YAAAAASUVORK5CYII=)  
+
 **16. Observaciones finales**  
 Este proyecto muestra un flujo completo de trabajo desde un archivo plano de datos hasta una solución organizada de base de datos y visualización.  
 Aunque el dataset original no fue diseñado como una base relacional, el proceso de limpieza y modelado permitió convertirlo en una estructura coherente, analizable y presentable como entrega académica final.  
