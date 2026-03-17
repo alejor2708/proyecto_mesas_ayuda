@@ -1,58 +1,67 @@
-# ==========================================================
-# Dashboard de Mesas de Ayuda - Versión de prueba en Colab
-# ==========================================================
-# Este archivo contiene la aplicación en Streamlit utilizada
-# para visualizar los datos procesados del proyecto.
-#
-# La app:
-# - carga los CSV procesados,
-# - unifica la información,
-# - genera KPIs,
-# - presenta gráficos y tablas,
-# - ayuda a identificar hallazgos y anomalías.
-# ==========================================================
+from pathlib import Path
 
 import pandas as pd
 import streamlit as st
-from pathlib import Path
 
-# Configuración general de la página.
-# 'wide' permite aprovechar más ancho en pantalla.
+
+# ==========================================================
+# Dashboard de Mesas de Ayuda
+# ==========================================================
+# Esta aplicación en Streamlit carga los archivos procesados
+# del proyecto desde la estructura local del repositorio y
+# presenta una visualización analítica con:
+# - KPIs generales,
+# - filtros por categoría y año,
+# - resumen por tipo principal,
+# - top 10 por casos abiertos,
+# - top 10 por tiempo promedio,
+# - observaciones/anomalías,
+# - tabla detallada.
+# ==========================================================
+
+
 st.set_page_config(
     page_title="Dashboard Mesas de Ayuda",
     layout="wide"
 )
 
+
 @st.cache_data
 def cargar_datos():
     """
-    Carga los archivos CSV subidos al entorno de Colab y devuelve:
+    Carga los archivos CSV procesados desde la estructura local del proyecto y devuelve:
     - df: tabla unificada para análisis
     - dim_tipo: tabla dimensional
     - fact_mesas_ayuda: tabla de hechos
     """
+    # Ubicamos la carpeta raíz del proyecto a partir de la ubicación
+    # del archivo actual (app/streamlit_app.py).
     root_dir = Path(__file__).resolve().parents[1]
 
+    # Definimos las rutas hacia los archivos procesados que alimentan el dashboard.
     dim_path = root_dir / "data" / "processed" / "dim_tipo_solicitud.csv"
     fact_path = root_dir / "data" / "processed" / "fact_mesas_ayuda.csv"
 
+    # Leemos la tabla dimensional y la tabla de hechos.
     dim_tipo = pd.read_csv(dim_path)
     fact_mesas_ayuda = pd.read_csv(fact_path)
 
-    # Unimos la tabla de hechos con la tabla dimensional
-    # mediante la clave tipo_id.
+    # Unimos la tabla de hechos con la tabla dimensional mediante tipo_id.
     df = fact_mesas_ayuda.merge(dim_tipo, on="tipo_id", how="left")
+
     return df, dim_tipo, fact_mesas_ayuda
+
 
 def formatear_segundos(segundos):
     """
-    Convierte un valor en segundos a un formato legible
+    Convierte un valor numérico en segundos a un formato legible
     del tipo: días, horas, minutos y segundos.
     """
     if pd.isna(segundos):
         return "N/A"
 
     segundos = int(round(segundos))
+
     dias = segundos // 86400
     resto = segundos % 86400
     horas = resto // 3600
@@ -72,10 +81,12 @@ def formatear_segundos(segundos):
 
     return " ".join(partes)
 
+
 # ----------------------------------------------------------
 # Carga principal de datos
 # ----------------------------------------------------------
 df, dim_tipo, fact_mesas_ayuda = cargar_datos()
+
 
 # ----------------------------------------------------------
 # Título y descripción general
@@ -83,11 +94,12 @@ df, dim_tipo, fact_mesas_ayuda = cargar_datos()
 st.title("Dashboard de Mesas de Ayuda")
 st.markdown(
     """
-    Visualización analítica construida a partir de registros agregados de mesas de ayuda.
+    Visualización analítica construida a partir de registros agregados de mesas de ayuda.  
     Cada fila representa una categoría de solicitud con métricas como casos abiertos,
-    resueltos, cerrados y tiempo promedio de solución.
+    resueltos, cerrados, atrasados y tiempo promedio de solución.
     """
 )
+
 
 # ----------------------------------------------------------
 # Filtros laterales
@@ -98,8 +110,8 @@ st.sidebar.header("Filtros")
 tipos_principales = ["Todos"] + sorted(df["tipo_principal"].dropna().unique().tolist())
 tipo_seleccionado = st.sidebar.selectbox("Tipo principal", tipos_principales)
 
-# Si la base contiene columna de año, la usamos como filtro adicional.
-# Si no existe, la app sigue funcionando sin romperse.
+# Si la base contiene columna de año, se habilita un filtro adicional.
+# Si no existe, la app continúa funcionando sin romperse.
 if "anio" in df.columns:
     anios = sorted(df["anio"].dropna().unique().tolist())
     anios_seleccionados = st.sidebar.multiselect(
@@ -123,17 +135,34 @@ if "anio" in df_filtrado.columns and anios:
     else:
         df_filtrado = df_filtrado.iloc[0:0]
 
+
 # ----------------------------------------------------------
 # KPIs principales
 # ----------------------------------------------------------
-# Calculamos métricas agregadas para mostrar en la parte superior.
 total_abiertos = int(df_filtrado["casos_abiertos"].sum())
 total_resueltos = int(df_filtrado["casos_resueltos"].sum())
 total_cerrados = int(df_filtrado["casos_cerrados"].sum())
-promedio_tiempo = float(df_filtrado["tiempo_promedio_segundos"].mean()) if not df_filtrado.empty else 0
-tasa_resolucion = round((total_resueltos / total_abiertos) * 100, 2) if total_abiertos > 0 else 0
+promedio_tiempo = (
+    float(df_filtrado["tiempo_promedio_segundos"].mean())
+    if not df_filtrado.empty
+    else 0
+)
+tasa_resolucion = (
+    round((total_resueltos / total_abiertos) * 100, 2)
+    if total_abiertos > 0
+    else 0
+)
 
 st.subheader("Resumen general")
+st.caption(
+    f"Filtro activo → Tipo principal: {tipo_seleccionado}"
+    + (
+        f" | Año(s): {', '.join(map(str, anios_seleccionados))}"
+        if anios_seleccionados
+        else ""
+    )
+)
+
 col1, col2, col3, col4 = st.columns(4)
 col1.metric("Casos abiertos", f"{total_abiertos:,}")
 col2.metric("Casos resueltos", f"{total_resueltos:,}")
@@ -143,6 +172,7 @@ col4.metric("Tasa de resolución", f"{tasa_resolucion}%")
 col5, col6 = st.columns(2)
 col5.metric("Tiempo promedio", formatear_segundos(promedio_tiempo))
 col6.metric("Registros analizados", len(df_filtrado))
+
 
 # ----------------------------------------------------------
 # Resumen por tipo principal
@@ -164,6 +194,7 @@ else:
         use_container_width=True
     )
 
+
 # ----------------------------------------------------------
 # Top 10 por casos abiertos
 # ----------------------------------------------------------
@@ -183,6 +214,7 @@ if not top_tipos.empty:
         use_container_width=True
     )
 
+
 # ----------------------------------------------------------
 # Top 10 por tiempo promedio
 # ----------------------------------------------------------
@@ -196,15 +228,21 @@ top_tiempos = (
 )
 
 if not top_tiempos.empty:
-    top_tiempos["tiempo_promedio_legible"] = top_tiempos["tiempo_promedio_segundos"].apply(formatear_segundos)
+    top_tiempos["tiempo_promedio_legible"] = top_tiempos[
+        "tiempo_promedio_segundos"
+    ].apply(formatear_segundos)
+
     st.dataframe(
-        top_tiempos[["tipo_completo", "tiempo_promedio_segundos", "tiempo_promedio_legible"]],
+        top_tiempos[
+            ["tipo_completo", "tiempo_promedio_segundos", "tiempo_promedio_legible"]
+        ],
         use_container_width=True
     )
     st.bar_chart(
         top_tiempos.set_index("tipo_completo")["tiempo_promedio_segundos"],
         use_container_width=True
     )
+
 
 # ----------------------------------------------------------
 # Observaciones y anomalías
@@ -244,6 +282,7 @@ if not observaciones.empty:
     else:
         st.dataframe(anomalias, use_container_width=True)
 
+
 # ----------------------------------------------------------
 # Tabla detallada final
 # ----------------------------------------------------------
@@ -270,4 +309,4 @@ st.dataframe(
     use_container_width=True
 )
 
-st.success("Dashboard cargado correctamente.")
+st.success("Dashboard cargado correctamente desde data/processed.")
