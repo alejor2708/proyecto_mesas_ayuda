@@ -6,7 +6,7 @@ Proyecto de base de datos relacional y dashboard analítico construido a partir 
 
 ## 1. Descripción general
 
-El objetivo de este proyecto fue transformar un archivo CSV de origen abierto en una solución estructurada de análisis de datos compuesta por:
+Este proyecto transforma un archivo CSV de origen abierto en una solución estructurada de análisis de datos compuesta por:
 
 - preparación y transformación de datos en Python/pandas,
 - modelo entidad-relación (MER),
@@ -20,7 +20,35 @@ El proyecto integra varias capas de trabajo: preparación del dato, modelado, va
 
 ---
 
-## 2. Contexto del dataset
+## 2. Objetivo del proyecto
+
+Desarrollar una **solución integrada de análisis de datos y bases de datos** aplicada al ámbito de las **tecnologías de la información y la comunicación (TIC)**, utilizando un dataset de Mesas de Ayuda para:
+
+- organizar la información en un modelo relacional,
+- realizar consultas y validaciones analíticas,
+- identificar patrones de carga operativa, tiempos de solución y posibles anomalías,
+- construir visualizaciones que respalden la interpretación de resultados,
+- y generar insumos útiles para la **toma de decisiones** en la gestión del soporte tecnológico.
+
+---
+
+## 3. Justificación del proyecto frente a la consigna
+
+Este proyecto se enmarca en la línea de **ciencia, tecnología e innovación aplicada a las TIC**, ya que aborda una problemática asociada a la **gestión de servicios de soporte tecnológico**. A partir de datos de una mesa de ayuda, se desarrolló una solución integrada basada en limpieza y transformación de datos, modelado relacional en MySQL, consultas analíticas y un dashboard en Streamlit.
+
+La propuesta responde a la consigna del proyecto final porque demuestra la capacidad de:
+
+- gestionar bases de datos,
+- integrar y transformar información,
+- realizar consultas analíticas,
+- visualizar resultados de manera comprensible,
+- y apoyar la toma de decisiones mediante evidencia.
+
+Más que presentar solo una base de datos o un dashboard aislado, el proyecto construye un flujo completo que permite comprender mejor la distribución de solicitudes, detectar categorías críticas, monitorear tiempos de solución e identificar comportamientos atípicos en un entorno TIC.
+
+---
+
+## 4. Contexto del dataset
 
 El dataset trabajado corresponde a registros de **Mesas de Ayuda** obtenidos desde una fuente abierta en formato CSV.
 
@@ -40,7 +68,23 @@ Primero fue necesario realizar un proceso de comprensión, limpieza y transforma
 
 ---
 
-## 3. Flujo general del proyecto
+## 5. Problemática abordada
+
+La problemática central del proyecto se relaciona con la necesidad de **analizar y comprender el comportamiento operativo de una mesa de ayuda en el ámbito TIC**.
+
+En contextos de soporte tecnológico, resulta clave responder preguntas como:
+
+- ¿qué categorías concentran la mayor carga de solicitudes?
+- ¿qué tipos de requerimientos demandan más atención?
+- ¿cómo se comportan los tiempos promedio de solución?
+- ¿existen diferencias entre casos abiertos y cerrados?
+- ¿hay señales de inconsistencias o anomalías en los datos?
+
+Este proyecto busca responder esas preguntas mediante una estructura de datos organizada y una capa de visualización que facilite la interpretación.
+
+---
+
+## 6. Flujo general del proyecto
 
 El flujo de trabajo desarrollado fue el siguiente:
 
@@ -55,11 +99,40 @@ El flujo de trabajo desarrollado fue el siguiente:
 9. Definición de claves primarias y clave foránea.
 10. Validación mediante consultas SQL.
 11. Construcción de un dashboard en Streamlit.
-12. Organización de la entrega final en GitHub, incluyendo README, MER y landing page.
+12. Organización de la entrega final en GitHub, incluyendo README, MER, evidencias y landing page.
 
 ---
 
-## 4. Preparación de datos
+## 7. Proceso resumido para llegar al resultado final
+
+El proyecto se desarrolló en las siguientes etapas:
+
+1. **Comprensión del dataset original**  
+   Se identificó que el archivo CSV no contenía tickets individuales, sino registros agregados por tipo de solicitud.
+
+2. **Limpieza y transformación en Python**  
+   Se estandarizaron columnas, se transformó `tipo_solicitud` en variables más analíticas (`tipo_principal`, `subtipo`, `tipo_completo`) y se convirtió el tiempo promedio a segundos.
+
+3. **Construcción del modelo relacional**  
+   A partir de los datos procesados se definieron dos tablas:
+   - `dim_tipo_solicitud`
+   - `fact_mesas_ayuda`
+
+4. **Implementación en MySQL**  
+   Se creó la base de datos `proyecto_mesas_ayuda`, se cargaron los archivos procesados y se establecieron claves primarias y foránea.
+
+5. **Validación mediante SQL**  
+   Se verificó la consistencia de filas, totales y relaciones entre tablas.
+
+6. **Visualización en Streamlit**  
+   Se construyó un dashboard con KPIs, filtros, distribución por categorías, tiempos promedio y observaciones analíticas.
+
+7. **Presentación final en GitHub**  
+   Se organizó el repositorio con notebooks, scripts SQL, MER exportado, dashboard, landing page y documentación.
+
+---
+
+## 8. Preparación de datos
 
 Durante la fase de transformación se realizaron las siguientes operaciones principales:
 
@@ -82,7 +155,7 @@ Los archivos procesados generados al final de esta fase fueron:
 
 ---
 
-## 5. Modelo de datos
+## 9. Modelo de datos
 
 La base de datos implementada en MySQL es **relacional** y se definió con el nombre:
 
@@ -130,7 +203,7 @@ Y el archivo editable de Workbench en:
 
 ---
 
-## 6. Validaciones realizadas
+## 10. Validaciones realizadas
 
 Después de la carga en MySQL se verificó la consistencia de la información con los siguientes resultados:
 
@@ -145,7 +218,7 @@ Estas validaciones confirmaron que la carga quedó coherente con los archivos pr
 
 ---
 
-## 7. Hallazgos principales
+## 11. Hallazgos principales
 
 Entre los hallazgos más importantes del proyecto se encuentran:
 
@@ -158,7 +231,22 @@ Estos hallazgos se reflejan tanto en las consultas SQL como en el dashboard de v
 
 ---
 
-## 8. Dashboard en Streamlit
+## 12. Aporte a la toma de decisiones
+
+El proyecto aporta valor analítico para la toma de decisiones en la gestión del soporte TIC porque permite:
+
+- identificar las categorías con mayor demanda,
+- reconocer tipos de solicitudes que concentran la carga operativa,
+- comparar casos abiertos, resueltos y cerrados,
+- monitorear tiempos promedio de solución,
+- detectar comportamientos anómalos o inconsistencias,
+- y priorizar áreas donde podrían requerirse mejoras de gestión o seguimiento.
+
+De esta forma, la solución no se limita al almacenamiento de datos, sino que ofrece una base útil para interpretar el comportamiento del servicio de soporte tecnológico.
+
+---
+
+## 13. Dashboard en Streamlit
 
 Como capa de visualización se construyó un dashboard analítico en Streamlit que permite:
 
@@ -173,11 +261,11 @@ El archivo principal del dashboard se encuentra en:
 
 - `app/streamlit_app.py`
 
-El dashboard fue probado tanto en entorno de desarrollo como en ejecución local desde el repositorio.
+El dashboard fue probado en entorno de desarrollo y también en ejecución local desde el repositorio.
 
 ---
 
-## 9. Landing page
+## 14. Landing page
 
 Como parte de la presentación final del proyecto se construyó una landing page estática que resume:
 
@@ -194,7 +282,67 @@ La landing page se encuentra en:
 
 ---
 
-## 10. Estructura del repositorio
+## 15. Verificación rápida del proyecto
+
+Para comprobar rápidamente que el proyecto quedó funcional, se puede seguir este orden:
+
+1. Revisar el MER en:
+   - `docs/mer_modelo_relacional.png`
+
+2. Ejecutar en MySQL:
+   - `sql/01_modelo_y_carga.sql`
+   - `sql/02_consultas_analiticas.sql`
+
+3. Verificar los resultados esperados:
+   - filas en `dim_tipo_solicitud`: **63**
+   - filas en `fact_mesas_ayuda`: **63**
+   - total casos abiertos: **2109**
+   - total casos resueltos: **2106**
+   - total casos atrasados: **0**
+   - total casos cerrados: **2106**
+
+4. Ejecutar el dashboard con:
+
+```bash
+python -m pip install -r requirements.txt
+python -m streamlit run app/streamlit_app.py
+```
+
+5. Confirmar que el dashboard muestra correctamente:
+   - KPIs generales,
+   - categorías por tipo principal,
+   - top de casos abiertos,
+   - tiempos promedio,
+   - observaciones/anomalías.
+
+6. Abrir la landing page en:
+   - `landing/index.html`
+
+---
+
+## 16. Evidencias visuales
+
+A continuación se incluyen algunas evidencias del funcionamiento del proyecto.
+
+### 16.1 Dashboard en ejecución
+
+![Dashboard funcionando](assets/img/evidencias/dashboard_funcionando.png)
+
+### 16.2 Tablas creadas en MySQL
+
+![Tablas en MySQL](assets/img/evidencias/mysql_tablas.png)
+
+### 16.3 Validación SQL de resultados
+
+![Validación SQL](assets/img/evidencias/validacion_sql.png)
+
+### 16.4 Landing page del proyecto
+
+![Landing page](assets/img/evidencias/landing_page.png)
+
+---
+
+## 17. Estructura del repositorio
 
 ```text
 proyecto_mesas_ayuda/
@@ -202,6 +350,7 @@ proyecto_mesas_ayuda/
 │   └── streamlit_app.py
 ├── assets/
 │   └── img/
+│       └── evidencias/
 ├── data/
 │   ├── raw/
 │   │   └── Mesas_de_ayuda.csv
@@ -228,7 +377,7 @@ proyecto_mesas_ayuda/
 
 ---
 
-## 11. Archivos principales
+## 18. Archivos principales
 
 ### Datos
 
@@ -259,7 +408,7 @@ proyecto_mesas_ayuda/
 
 ---
 
-## 12. Tecnologías utilizadas
+## 19. Tecnologías utilizadas
 
 - Python
 - pandas
@@ -273,7 +422,7 @@ proyecto_mesas_ayuda/
 
 ---
 
-## 13. Entorno de trabajo recomendado
+## 20. Entorno de trabajo recomendado
 
 Para la entrega final se recomienda trabajar principalmente en **Windows**, ya que es el entorno sugerido en el curso.
 
@@ -285,7 +434,7 @@ Durante el desarrollo también se utilizó **Ubuntu** como entorno alterno para:
 
 ---
 
-## 14. Cómo ejecutar el proyecto
+## 21. Cómo ejecutar el proyecto
 
 ### A. Scripts SQL
 
@@ -318,7 +467,7 @@ Abrir `landing/index.html` en el navegador o servir el proyecto localmente con u
 
 ---
 
-## 15. Estado actual del proyecto
+## 22. Estado actual del proyecto
 
 Actualmente el proyecto cuenta con:
 
@@ -329,11 +478,12 @@ Actualmente el proyecto cuenta con:
 - MER exportado desde MySQL Workbench,
 - dashboard funcional en Streamlit,
 - landing page de presentación,
+- evidencias visuales,
 - documentación y organización final en GitHub.
 
 ---
 
-## 16. Observaciones finales
+## 23. Observaciones finales
 
 Este proyecto muestra un flujo completo de trabajo desde un archivo plano de datos hasta una solución organizada de base de datos y visualización.
 
