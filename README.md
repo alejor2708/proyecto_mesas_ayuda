@@ -483,8 +483,18 @@ Actualmente el proyecto cuenta con:
 
 ---
 
-## 23. Observaciones finales
+# 23. Soportes de entrega
+
+## Video de presentación
+- [Ver video en YouTube](https://youtu.be/CwhHfk0WUX8)
+
+---
+
+## 24. Observaciones finales
 
 Este proyecto muestra un flujo completo de trabajo desde un archivo plano de datos hasta una solución organizada de base de datos y visualización.
 
 Aunque el dataset original no fue diseñado como una base relacional, el proceso de limpieza y modelado permitió convertirlo en una estructura coherente, analizable y presentable como entrega académica final.
+
+
+
